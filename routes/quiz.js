@@ -6,10 +6,10 @@ const quiz= require('../controllers/quiz.controller');
 router.get('/', quiz.getQuiz);
 
 // GET /quizzes?category=1
-router.get('/', quiz.getQuizByCategory);
+router.get('/category/:categoryId', quiz.getQuizByCategory);
 
 // GET /quizzes?level=1
-router.get('/', quiz.getQuizByLevel);
+router.get('/level/:levelId', quiz.getQuizByLevel);
 
 // GET /quizzes/:id
 router.get('/:id', quiz.getQuizById);

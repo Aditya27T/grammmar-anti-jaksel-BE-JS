@@ -2,46 +2,9 @@ const { quiz, level, category } = require('../models');
 
 // GET /quizzes
 const getQuiz = async (req, res) => {
-    const quizzes = await quiz.findAll({
-        limit: 10,
-        offset: 0,
-        include: [
-            {
-                model: category,
-                as: 'category',
-                attributes: ['name'],
-            },
-            {
-                model: level,
-                as: 'level',
-                attributes: ['name'],
-            }
-        ],
-        attributes: {
-            exclude: ['categoryId', 'levelId']
-        }
-    });
+    const {offset, limit} = req.query;
     try {
-        res.status(200).json({
-            message: 'Success',
-            data: quizzes
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Failed',
-            data: error.message
-        });
-    }
-};
-
-// GET /quizzes?category=1
-const getQuizByCategory = async (req, res) => {
-    const { category } = req.query;
-    try {
-        const quizzes = await quiz.findAll({
-            limit: 10,
-            offset: 0,
-            where: { categoryId: category },
+        const quizzes = await quiz.findAndCountAll({
             include: [
                 {
                     model: category,
@@ -56,6 +19,50 @@ const getQuizByCategory = async (req, res) => {
             ],
             attributes: {
                 exclude: ['categoryId', 'levelId']
+            },
+            // limit: limit,
+            // offset: offset
+        });
+        if (quizzes === null) {
+            res.status(404).json({
+                message: 'Failed',
+                data: 'Quiz not found'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Success',
+                data: quizzes
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Failed',
+            data: error.message
+        }).render('error', { error: error });
+    }
+};
+
+// GET /quizzes?category=1
+const getQuizByCategory = async (req, res) => {
+    const { categoryId } = req.params;
+    try {
+        const quizzes = await quiz.findAll({
+            where: { categoryId: categoryId },
+            include: [
+                {
+                    model: category,
+                    as: 'category',
+                    attributes: ['name'],
+                },
+                {
+                    model: level,
+                    as: 'level',
+                    attributes: ['name'],
+                }
+
+            ],
+            attributes: {
+                exclude: ['categoryId', 'levelId', 'createdAt', 'updatedAt']
             }
         });
         if (quizzes === null) {
@@ -80,35 +87,31 @@ const getQuizByCategory = async (req, res) => {
 
 // GET /quizzes?level=1
 const getQuizByLevel = async (req, res) => {
-    const { level } = req.query;
+    const { levelId } = req.params;
     try {
         const quizzes = await quiz.findAll({
-            where: { levelId: level },
+            where: { levelId: levelId },
             include: [
-                {
-                    model: category,
-                    as: 'category',
-                    attributes: ['name'],
-                },
                 {
                     model: level,
                     as: 'level',
                     attributes: ['name'],
                 }
+
             ],
             attributes: {
-                exclude: ['categoryId', 'levelId']
+                exclude: ['categoryId', 'CategoryId', 'levelId', 'createdAt', 'updatedAt']
             }
         });
-        if (quizzes !== null) {
-            res.status(200).json({
-                message: 'Success',
-                data: quizzes
-            });
-        } else {
+        if (quizzes === null) {
             res.status(404).json({
                 message: 'Failed',
                 data: 'Quiz not found'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Success',
+                data: quizzes
             });
         }
     }
@@ -119,6 +122,7 @@ const getQuizByLevel = async (req, res) => {
         });
     }
 };
+            
 
 // GET /quizzes/:id
 const getQuizById = async (req, res) => {
