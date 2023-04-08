@@ -30,5 +30,6 @@ module.exports = {
             acquire : 30000,
             idle : 10000
         }
-    }
+    },
+    NODE_ENV: process.env.NODE_ENV  
 };
