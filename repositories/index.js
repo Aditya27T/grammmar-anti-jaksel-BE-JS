@@ -40,10 +40,9 @@ db.youtube.belongsTo(db.category, { foreignKey: 'categoryId' });
 db.material.hasOne(db.submaterial, { foreignKey: 'materialId' }, { onDelete: 'cascade' }, { hooks: true });
 db.submaterial.belongsTo(db.material, { foreignKey: 'materialId' }, { onDelete: 'cascade' }, { hooks: true });
 
-
 //sync all defined models to the DB
 if (NODE_ENV === 'development') {
-    sequelize.sync({ force: false })
+    sequelize.sync({ force: true })
         .then(() => {
             console.log(`Database & tables created!`)
         });

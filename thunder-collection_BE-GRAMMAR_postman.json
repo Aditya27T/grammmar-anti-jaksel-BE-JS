@@ -1,0 +1,544 @@
+{
+    "info": {
+        "name": "BE-GRAMMAR",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "quiz",
+            "item": [
+                {
+                    "name": "get/Quiz",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/quiz",
+                            "path": [
+                                "v1",
+                                "quiz"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "geOne/Quiz",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/quiz/1",
+                            "path": [
+                                "v1",
+                                "quiz",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "add/Quiz",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:3000/v1/quiz",
+                            "path": [
+                                "v1",
+                                "quiz"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"question\":\"apakah saya manusia\", \n  \"key\":\"a\", \n  \"a\":\"ya\", \n  \"b\":\"tidak\", \n  \"c\":\"bisajadi\", \n  \"d\":\"turu\", \n  \"categoryId\":\"1\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "update/Quiz",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:3000/v1/quiz/1",
+                            "path": [
+                                "v1",
+                                "quiz",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"question\":\"apakah saya manusia\", \n  \"key\":\"a\", \n  \"a\":\"ya\", \n  \"b\":\"tidak\", \n  \"c\":\"bisajadi\", \n  \"d\":\"turu\", \n  \"categoryId\":\"1\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete/Quiz",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:3000/v1/quiz/1",
+                            "path": [
+                                "v1",
+                                "quiz",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "materi",
+            "item": [
+                {
+                    "name": "add/Materi",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:3000/v1/material",
+                            "path": [
+                                "v1",
+                                "material"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"judul\":\"turu\",\n  \"materi1\":\"sadjkjzfjwioaedjqwioejdwiopdjaxuapoue8w0u8auiojsihjfiohohasjkhjjahjsdojksdjnkfjiosjiosdujioajfiojioejioafjiofjiojfiojfoiufjj\",\n  \"categoryId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "add/SubMaterial",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/sub",
+                            "path": [
+                                "v1",
+                                "material",
+                                "sub"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"judul\":\"turu\",\n  \"submateri\":\"sadjkjzfjwioaedjqwioejdwiopdjaxuapoue8w0u8auiojsihjfiohohasjkhjjahjsdojksdjnkfjiosjiosdujioajfiojioejioafjiofjiojfiojfoiufjj\",\n  \"categoryId\":1,\n  \"materialId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get/Material",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/material",
+                            "path": [
+                                "v1",
+                                "material"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "getOne/Material",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/material",
+                            "path": [
+                                "v1",
+                                "material"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "getOne/SubMaterial",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/sub/1",
+                            "path": [
+                                "v1",
+                                "material",
+                                "sub",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "get/SubMaterial",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/sub",
+                            "path": [
+                                "v1",
+                                "material",
+                                "sub"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "update/Material",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/1",
+                            "path": [
+                                "v1",
+                                "material",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"judul\":\"turu\",\n  \"materi1\":\"dfsdfdgsdrgsdfg\",\n  \"categoryId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "update/SubMaterial",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/sub/1",
+                            "path": [
+                                "v1",
+                                "material",
+                                "sub",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"judul\":\"turu\",\n  \"submateri\":\"iasujriorhuifhuioefhjuiahuisfhueh\",\n  \"categoryId\":1,\n  \"materialId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete/AllMateri",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:3000/v1/material/1",
+                            "path": [
+                                "v1",
+                                "material",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "category",
+            "item": [
+                {
+                    "name": "add/Category",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:3000/v1/category",
+                            "path": [
+                                "v1",
+                                "category"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\":\"tidur\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get/Category",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/category",
+                            "path": [
+                                "v1",
+                                "category"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "getOne/Category ",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/category/1",
+                            "path": [
+                                "v1",
+                                "category",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "update/Category",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:3000/v1/category/1",
+                            "path": [
+                                "v1",
+                                "category",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\":\"turu\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete/Category",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:3000/v1/category/1",
+                            "path": [
+                                "v1",
+                                "category",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "youtube",
+            "item": [
+                {
+                    "name": "add/Category",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "localhost:3000/v1/youtube",
+                            "path": [
+                                "v1",
+                                "youtube"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"url\":\"www.yt.com\",\n  \"categoryId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get/Category",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/youtube",
+                            "path": [
+                                "v1",
+                                "youtube"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "getOne/Category ",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "localhost:3000/v1/youtube/1",
+                            "path": [
+                                "v1",
+                                "youtube",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                },
+                {
+                    "name": "update/Category",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "localhost:3000/v1/youtube/1",
+                            "path": [
+                                "v1",
+                                "youtube",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"url\":\"www.youtube.com\",\n  \"categoryId\":1\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "delete/Category",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "localhost:3000/v1/youtube/1",
+                            "path": [
+                                "v1",
+                                "youtube",
+                                "1"
+                            ],
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,17 +1,17 @@
 const model = require('../repositories');
-const sub = model.subMaterial;
+const sub = model.submaterial;
 
 // Create and Save a new Material
 const create = async (req, res) => {
-    const {judul, materi1, categoryId } = req.body;
+    const {judul, submateri, categoryId, materialId } = req.body;
 
-    if (!judul || !materi1 || !categoryId) {
+    if (!judul || !submateri || !categoryId || !materialId) {
         return res.status(400).json({
             message: "Content can not be empty!"
         });
     }
     const data = new sub({
-        judul, materi1, categoryId
+        judul, submateri, categoryId, materialId
     });
 
     // Save Material in the database
@@ -54,8 +54,30 @@ const findOne = async (req, res) => {
             data: result
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json({
             message: "Error retrieving Material with id=" + id,
+            error: err.message || "Some error occurred while retrieving materials."
+        });
+    }
+}
+
+const update = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await sub.update(req.body, {
+            where: { id: id }
+        });
+        if (result == 1) {
+            res.json({
+                message: "Success",
+                data: result
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: "Error updating Material with id=" + id,
             error: err.message || "Some error occurred while retrieving materials."
         });
     }
@@ -64,5 +86,6 @@ const findOne = async (req, res) => {
 module.exports = {
     create,
     findAll,
-    findOne
+    findOne,
+    update
 }

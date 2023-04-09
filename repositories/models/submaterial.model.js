@@ -12,6 +12,10 @@ const submaterial = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        materialId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     });
     return Submaterial;
 };
