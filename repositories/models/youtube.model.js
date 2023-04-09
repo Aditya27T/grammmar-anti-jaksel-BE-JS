@@ -11,3 +11,5 @@ const youtube = ( sequelize, DataTypes ) => {
     });
     return Youtube;
 }
+
+module.exports = youtube;

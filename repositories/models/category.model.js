@@ -7,3 +7,5 @@ const category = ( sequelize, DataTypes ) => {
     });
     return Category;
 }
+
+module.exports = category;
