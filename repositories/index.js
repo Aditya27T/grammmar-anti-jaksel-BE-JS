@@ -1,4 +1,3 @@
-const mysql = require('mysql2/promise');
 const { production, development, NODE_ENV } = require('../config/db');
 const Sequelize = require('sequelize');
 const quizModel = require('./models/quiz.model');
@@ -7,20 +6,6 @@ const materialModel = require('./models/material.model');
 const youtubeModel = require('./models/youtube.model');
 const subMaterialModel = require('./models/submaterial.model');
 
-
-mysql.createConnection({
-    host: development.host,
-    user: development.username,
-    password: development.password,
-}).then((connection) => {
-    connection.query(`CREATE DATABASE IF NOT EXISTS ${development.database};`).then(() => {
-        console.log('Database created');
-    }).catch((err) => {
-        console.log(err);
-    });
-}).catch((err) => {
-    console.log(err);
-});
 
 const sequelize = new Sequelize(development.database, development.username, development.password, {
     host: development.host,
@@ -52,23 +37,24 @@ db.material.belongsTo(db.category, { foreignKey: 'categoryId' });
 db.category.hasMany(db.youtube, { foreignKey: 'categoryId' });
 db.youtube.belongsTo(db.category, { foreignKey: 'categoryId' });
 
-db.material.hasOne(db.submaterial);
-db.submaterial.belongsTo(db.material);
+db.material.hasOne(db.submaterial, { foreignKey: 'materialId' }, { onDelete: 'cascade' }, { hooks: true });
+db.submaterial.belongsTo(db.material, { foreignKey: 'materialId' }, { onDelete: 'cascade' }, { hooks: true });
 
 
 //sync all defined models to the DB
-if (process.env.NODE_ENV || NODE_ENV  == 'production') {
-    sequelize.sync().then(() => {
-        console.log('Database synchronized');
-    }).catch((err) => {
-        console.log(err);
-    });
+if (NODE_ENV === 'development') {
+    sequelize.sync({ force: false })
+        .then(() => {
+            console.log(`Database & tables created!`)
+        });
+} else if (NODE_ENV === 'production') {
+    sequelize.sync()
+        .then(() => {
+            console.log(`Database & tables created!`)
+        });
 } else {
-    sequelize.sync({ force: true }).then(() => {
-        console.log('Database synchronized');
-    }).catch((err) => {
-        console.log(err);
-    });
+    console.log('No environment specified');
 }
+
 
 module.exports = db;
