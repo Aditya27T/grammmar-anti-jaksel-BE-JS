@@ -20,7 +20,7 @@ const create = (req, res) => {
     .then(data => {
         res.send(data);
     }).catch(err => {
-        res.status(500).josn({
+        res.status(500).json({
             message: err.message || "Some error occurred while creating the Material."
         });
     });
@@ -48,14 +48,9 @@ const findOne = (req, res) => {
     Material.findByPk(id, {
         include: [
             {
-                model: model.category,
-                as: "category",
-                attributes: ["id", "name"]
-            },
-            {
-                model: model.subMaterial,
-                as: "subMaterial",
-                attributes: ["id", "judul", "materi1", "categoryId"]
+                model: sub,
+                as: "submaterial",
+
             }
         ]
     })
@@ -83,24 +78,19 @@ const update = async (req, res) => {
         });
     }
 
-    Material.update({
+    const data = {
         judul, materi1, categoryId
-    }, {
-        where: { id: id }
-    })
+    };
 
-    const data = await Material.findByPk(id);
-
-    if (!data) {
-        return res.status(400).json({
-            message: "Material not found"
-        });
-    } else {
-        res.json({
-            message: "Success",
-            data: data
-        });
-    }
+    // Update Material in the database
+    await Material.update(data, {
+        where: { id: id },
+    });
+    const result = await Material.findByPk(id);
+    res.json({
+        message: "Success",
+        data: result
+    });
 }
 
 // Delete a Material with the specified id in the request
