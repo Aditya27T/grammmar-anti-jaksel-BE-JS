@@ -17,7 +17,7 @@ const createCategory = async (req, res) => {
 const getCategories = async (req, res) => {
     try {
         const categories = await Category.findAll((
-            { attributes: ['id', 'name'] }
+            { attributes: ['id', 'name'], exclude: ['createdAt', 'updatedAt']}
         ));
         return res.status(200).json({ 
             message: 'Categories retrieved successfully',
@@ -53,7 +53,7 @@ const updateCategory = async (req, res) => {
         if (!Category) {
             return res.status(404).send('Category with the specified ID does not exists');
         }
-        const updatedCategory = await Category.findOne({ where: { id: id } });
+        const updatedCategory = await Category.findOne({ where: { id: id }, exclude: ['createdAt']});
         return res.status(200).json({
             message: 'Category updated successfully',
             data: updatedCategory

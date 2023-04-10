@@ -49,7 +49,7 @@ if (NODE_ENV === 'development') {
 } else if (NODE_ENV === 'production') {
     sequelize.sync()
         .then(() => {
-            console.log(`Database & tables created!`)
+            console.log(`sync all defined models to the DB`)
         });
 } else {
     console.log('No environment specified');

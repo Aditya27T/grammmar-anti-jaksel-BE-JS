@@ -28,7 +28,9 @@ const create = (req, res) => {
 
 // Retrieve all Materials from the database.
 const findAll = (req, res) => {
-    Material.findAll()
+    Material.findAll({
+        exclude : ['createdAt', 'updatedAt', 'categoryId']
+    })
     .then(data => {
         res.json({
             message: "Success",
@@ -51,8 +53,10 @@ const findOne = (req, res) => {
                 model: sub,
                 as: "submaterial",
 
-            }
-        ]
+                model: Category,
+                as: "category",
+            }, 
+        ],
     })
     .then(data => {
         res.json({
@@ -128,10 +132,45 @@ const destroy = async (req, res) => {
     });
 }
 
+const findAllByCategory = async (req, res) => {
+    const categoryId = req.params.categoryId;
+    try {
+        const result = await Material.findAll({
+            where: { categoryId: categoryId},
+            include: [
+                {
+                    model: sub,
+                    as: "submaterial",
+                    attributes: ["id", "judul", "submateri"]
+                },
+
+                {
+                    model: model.category,
+                    as: "category",
+                    attributes: ["id", "name"]
+                }
+            ],
+            attributes: { exclude: ["createdAt", "updatedAt", "categoryId", "submaterialId"]}
+
+        });
+        res.json({
+            message: "Success",
+            data: result
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Error retrieving Material with id=" + categoryId,
+            error: error.message || "Some error occurred while retrieving materials."
+        });
+    }
+}
+
 module.exports = {
     create,
     findAll,
     findOne,
     update,
-    destroy
+    destroy,
+    findAllByCategory
 }

@@ -3,7 +3,10 @@ const yt = model.youtube;
 
 const getVideos = async (req, res) => {
     try {
-        const data = await yt.findAll();
+        const data = await yt.findAll({
+            attributes: ['id', 'url', 'categoryId'],
+            exclude: ['createdAt', 'updatedAt']
+        });
         return res.status(200).json({
             message: 'Videos retrieved successfully',
             data: data
@@ -21,7 +24,7 @@ const getVideoById = async (req, res) => {
     try {
         const { id } = req.params;
         const video = await yt.findOne({
-            where: { id: id }
+            where: { id: id }, exclude: ['createdAt', 'updatedAt', 'categoryId']
         });
         if (video) {
             return res.status(200).json({

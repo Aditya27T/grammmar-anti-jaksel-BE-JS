@@ -33,7 +33,18 @@ const create = async (req, res) => {
 // Retrieve all Quizzes from the database.
 const findAll = async (req, res) => {
     try {
-        const result = await Quiz.findAll();
+        const result = await Quiz.findAll({
+            include: [
+                {
+                    model: model.category,
+                    as: "category",
+                    attributes: ["id", "name"]
+                },
+            ],
+            attributes: {
+                exclude: ["createdAt", "updatedAt", "categoryId"]
+            }
+        });
         res.json({
             message: "Success",
             data: result
@@ -50,14 +61,18 @@ const findOne = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const result = await Quiz.findByPk(id, {
+        const result = await Quiz.findOne({
+            where: { id: id },
             include: [
                 {
                     model: model.category,
                     as: "category",
                     attributes: ["id", "name"]
-                }
-            ]
+                },
+            ],
+            attributes: {
+                exclude: ["createdAt", "updatedAt", "categoryId"]
+            }
         });
         res.json({
             message: "Success",
@@ -191,7 +206,16 @@ const findByCategoryId = async (req, res) => {
 
     try {
         await Quiz.findAll({
-            where: { categoryId: categoryId }
+            where: { categoryId: categoryId },  attributes: {
+                exclude: ["createdAt", "updatedAt", "categoryId"]
+            }, 
+            include: [
+                {
+                    model: model.category,
+                    as: "category",
+                    attributes: ["id", "name"]
+                },
+            ],
         }) 
         .then(data => {
             res.json({
