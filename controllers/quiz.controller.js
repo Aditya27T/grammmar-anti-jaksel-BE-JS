@@ -120,11 +120,102 @@ const destroy = async (req, res) => {
     }
 }
 
+const submitOne = async (req, res) => {
+    const { id, jawaban } = req.body;
 
-module.exports = {
+    try {
+        const result = await Quiz.findOne({
+            where: { id: id }
+        });
+
+        if (jawaban === result.key) {
+            res.json({
+                message: "Success",
+                data: true
+            });
+        } else {
+            res.json({
+                message: "Success",
+                data: false,
+                trueAnswer: result.key
+            });
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: "Error retrieving Quiz with id=" + id,
+            error: err.message || "Some error occurred while retrieving quizzes."
+        });
+    }
+}
+
+const submitMany = async (req, res) => {
+    const { id, jawaban } = req.body;
+
+    try {
+        const outcome = []
+        const result = {}
+        let correctAnswer = 0
+        let wrongAnswer = 0
+        
+        for (let i = 0; i < id.length; i++) {
+            const quiz = await Quiz.findOne({
+                where: { id: id[i], key: jawaban[i] }
+            });
+            if (quiz !== null) {
+                correctAnswer++
+                outcome.push(id, true)
+            } else {
+                wrongAnswer++
+                outcome.push(id, false)
+            }
+        }
+
+        result.correctAnswer = correctAnswer
+        result.wrongAnswer = wrongAnswer
+        result.outcome = outcome
+
+        res.json({
+            message: "Success",
+            data: result
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: "Error retrieving Quiz with id=" + id,
+            error: err.message || "Some error occurred while retrieving quizzes."
+        });
+    }
+}
+
+const findByCategoryId = async (req, res) => {
+    const categoryId = req.params.categoryId;
+
+    try {
+        await Quiz.findAll({
+            where: { categoryId: categoryId }
+        }) 
+        .then(data => {
+            res.json({
+                message: "Success",
+                data: data
+            });
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving quizzes.",
+            data: null
+        });
+    }
+
+}
+
+module.exports = 
+{
     create,
     findAll,
     findOne,
+    findByCategoryId,
     update,
-    destroy
+    destroy,
+    submitOne,
+    submitMany,
 }
